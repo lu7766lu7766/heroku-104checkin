@@ -1,10 +1,21 @@
 const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const app = express()
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+const multer = require('multer')
+const upload = multer()
+
+const checkin = require('./checkin')
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.get('/', (req, res) => {
+	res.json({
+		code: 0,
+		result: 'success',
+	})
+})
+
+app.post('/check-in', upload.array(), checkin)
+
+app.listen(5000)

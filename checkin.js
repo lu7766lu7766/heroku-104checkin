@@ -1,0 +1,34 @@
+const puppeteer = require('puppeteer')
+
+module.exports = async (req, res) => {
+	try {
+		const { username, password } = req.body
+
+		const browser = await puppeteer.launch({
+			headless: false,
+		})
+
+		const page = await browser.newPage()
+		await page.goto('https://bsignin.104.com.tw/login')
+		await page.waitForSelector('.BaseInput')
+		await page.waitForSelector('.BaseInput__view')
+		await page.type('.BaseInput__view[type="text"]', username)
+		await page.type('.BaseInput__view[type="password"]', password)
+		await page.click('.BaseButton')
+		await page.waitForSelector('.Product__product')
+		await page.goto('https://pro.104.com.tw/psc2')
+		await page.waitForSelector('.btn.btn-white.btn-lg.btn-block')
+		await page.click('.btn.btn-white.btn-lg.btn-block')
+		await page.waitForTimeout(1000)
+    await browser.close()
+		res.json({
+			code: 0,
+			result: 'success',
+		})
+	} catch (err) {
+		res.json({
+			code: -1,
+			result: err,
+		})
+	}
+}
