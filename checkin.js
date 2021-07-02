@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 			// headless: false,
 			// executablePath: '/usr/bin/chromium-browser',
 			args: ['--no-sandbox', '--disabled-setupid-sandbox'],
-			ignoreDefaultArgs: ['--disable-extensions'],
+			// ignoreDefaultArgs: ['--disable-extensions'],
 		})
 
 		const page = await browser.newPage()
