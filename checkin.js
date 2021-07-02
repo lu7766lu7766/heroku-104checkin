@@ -6,6 +6,7 @@ module.exports = async (req, res) => {
 
 		const browser = await puppeteer.launch({
 			// headless: false,
+			executablePath: '/usr/bin/chromium-browser',
 		})
 
 		const page = await browser.newPage()
