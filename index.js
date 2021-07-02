@@ -18,4 +18,4 @@ app.get('/', (req, res) => {
 
 app.post('/check-in', upload.array(), checkin)
 
-app.listen(5000)
+app.listen(5000, () => console.log("http://127.0.0.1:5000/"))
