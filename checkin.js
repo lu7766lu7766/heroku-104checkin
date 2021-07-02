@@ -1,14 +1,19 @@
 const puppeteer = require('puppeteer')
 
+// run puppeteer on heroku need run cli
+// $ heroku buildpacks:clear
+// $ heroku buildpacks:add --index 1 https://github.com/jontewks/puppeteer-heroku-buildpack
+// $ heroku buildpacks:add --index 1 heroku/nodejs
+
+// show heroku log
+// $ heroku logs --tail
+// http://arrogant-bunnyhug-30887.herokuapp.com/
 module.exports = async (req, res) => {
 	try {
 		const { username, password } = req.body
 
 		const browser = await puppeteer.launch({
-			// headless: false,
-			// executablePath: '/usr/bin/chromium-browser',
 			args: ['--no-sandbox', '--disabled-setupid-sandbox'],
-			// ignoreDefaultArgs: ['--disable-extensions'],
 		})
 
 		const page = await browser.newPage()
